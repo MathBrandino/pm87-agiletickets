@@ -23,7 +23,7 @@ public class Sessao {
 	@ManyToOne
 	private Espetaculo espetaculo;
 
-	@Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	private DateTime inicio;
 
 	private Integer duracaoEmMinutos;
@@ -90,16 +90,15 @@ public class Sessao {
 		// faz a conta de total de ingressos menos ingressos reservados
 		return totalIngressos - ingressosReservados;
 	}
-	
+
 	// Era usada antes no sistema para avisar o cliente de que
-    // os ingressos estavam acabando!
-    // Hoje nao serve pra nada, mas eh sempre bom ter
-    // um backup guardado! ;)
-    public boolean pertoDoLimiteDeSeguranca_NaoUtilizada()
-    {
-            int limite = 3;
-            return getIngressosDisponiveis() > limite;
-    }
+	// os ingressos estavam acabando!
+	// Hoje nao serve pra nada, mas eh sempre bom ter
+	// um backup guardado! ;)
+	public boolean pertoDoLimiteDeSeguranca_NaoUtilizada() {
+		int limite = 3;
+		return getIngressosDisponiveis() > limite;
+	}
 
 	public void reserva(Integer numeroDeIngressos) {
 		// soma quantidade na variavel ingressos reservados
@@ -108,9 +107,9 @@ public class Sessao {
 
 	public boolean podeReservar(Integer numeroDeIngressos) {
 		int sobraram = getIngressosDisponiveis() - numeroDeIngressos;
-        boolean naoTemEspaco = sobraram <= 0;
+		boolean naoTemEspaco = sobraram < 0;
 
-        return !naoTemEspaco;
+		return !naoTemEspaco;
 	}
 
 	public void setPreco(BigDecimal preco) {
@@ -120,5 +119,5 @@ public class Sessao {
 	public BigDecimal getPreco() {
 		return preco;
 	}
-	
+
 }
